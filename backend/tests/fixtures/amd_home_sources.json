@@ -1,0 +1,23 @@
+[
+  {
+    "fixture": "amd_home.html",
+    "url": "https://amd.online/",
+    "date": "2026-10-07",
+    "source_bytes": 301674,
+    "source_sha256": "0e4b278f1c363813148fc370683ef3de63bab96f59bf37da2aa55dcf2b8a460d"
+  },
+  {
+    "fixture": "amd_ongoing.html",
+    "url": "https://amd.online/ongoingi/",
+    "date": "2026-10-07",
+    "source_bytes": 70636,
+    "source_sha256": "2e6b0ca74a3848fd338b9d78ebe270f96a93f779c48610306decad07b96be9ff"
+  },
+  {
+    "fixture": "amd_popular.html",
+    "url": "https://amd.online/top-100-1.html",
+    "date": "2026-10-07",
+    "source_bytes": 132888,
+    "source_sha256": "d363dedf0b8ed068b3b800bdc8ea9475a5d9399d1d76797b5728c77adbae2f1f"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "fixture": "amd_search.html",
+    "source_sha256": "7962a93e2a0f63e41d5a4a57df07dad56f6dd5700998dbaae2c5ad25fb86002c",
+    "source_bytes": 51983,
+    "form_url": "https://amd.online/index.php?do=search",
+    "query": "Наруто",
+    "page": 1,
+    "captured_date": "2026-10-07"
+  },
+  {
+    "fixture": "amd_search_many.html",
+    "source_sha256": "4f590a85c37f982dc10c392e98223e0d8afa71dd0c9af7225ce1b7b82bfbe634",
+    "source_bytes": 58946,
+    "form_url": "https://amd.online/index.php?do=search",
+    "query": "мир",
+    "page": 1,
+    "captured_date": "2026-10-07"
+  },
+  {
+    "fixture": "amd_search_page2.html",
+    "source_sha256": "1c63756ecab24b6bf8cd735e55fa89eb3c9c5a2b0d36e7033e9167c09b58ab8e",
+    "source_bytes": 59669,
+    "form_url": "https://amd.online/index.php?do=search",
+    "query": "мир",
+    "page": 2,
+    "captured_date": "2026-10-07"
+  },
+  {
+    "fixture": "amd_search_empty.html",
+    "source_sha256": "c9bf892169f8c2464a38827cf502930e3c9e753845201c2b9fcfdd76c969f612",
+    "source_bytes": 51455,
+    "form_url": "https://amd.online/index.php?do=search",
+    "query": "aurorazzznomatchxyz",
+    "page": 1,
+    "captured_date": "2026-10-07"
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "file": "aurora-player-1489-2.html",
+    "url": "https://amd.online/1489-protivostojanie-svjatogo/episode/2/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:17.758571+00:00",
+    "source_sha256": "239d592339c00c7816055c8bc7c6b245073e0253e52a39560af162f09247f133",
+    "source_bytes": 376408,
+    "http_status": 200,
+    "fixture": "amd_player_1489_2.html",
+    "episode_id": "amd:1489-episode-2",
+    "fixture_sha256": "3f73161112ad8a35b1f7133c7d217150dfbd524fdade76d21deb6865203fb3c5",
+    "result": {
+      "provider": "amd",
+      "quality_hint": null,
+      "type": "WEB_EMBED",
+      "embed_url": "https://rutube.ru/play/embed/d791bbe24544e24369f260d348643c15",
+      "capabilities": {
+        "progress": false,
+        "seek": false,
+        "fullscreen": false
+      }
+    }
+  },
+  {
+    "file": "aurora-player-1489-162.html",
+    "url": "https://amd.online/1489-protivostojanie-svjatogo/episode/162/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:18.078313+00:00",
+    "source_sha256": "466644c2aa20edb1486c61f2e95d41d861658ff4e068ea27bec74019ed146e14",
+    "source_bytes": 375801,
+    "http_status": 200,
+    "fixture": "amd_player_1489_162.html",
+    "episode_id": "amd:1489-episode-162",
+    "fixture_sha256": "8a3573a80755c48683b7bb966d6ba04c8bf9e399cf012c08b2f1ee3a4d3aa4b1",
+    "result": "PLAYER_UNAVAILABLE"
+  },
+  {
+    "file": "aurora-player-5781-1.html",
+    "url": "https://amd.online/5781-magija-vernuvshegosja-dolzhna-byt-osobennoj-2/episode/1/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:18.331075+00:00",
+    "source_sha256": "21899e67e25b213604ca5722a68d5364b8041be913eac2c5078867ee4e1e0dcd",
+    "source_bytes": 265917,
+    "http_status": 200,
+    "fixture": "amd_player_5781_1.html",
+    "episode_id": "amd:5781-episode-1",
+    "fixture_sha256": "3170f92006bc623d6c199d1725910eeaf12d7eeedebe0c67cc6aaf0392b17be6",
+    "result": {
+      "provider": "amd",
+      "quality_hint": null,
+      "type": "WEB_EMBED",
+      "embed_url": "https://kodikplayer.com/serial/78700/9425d30b10255cb71a371ed3d0b1efd2/720p?season=2&episode=1&only_translations=923&hide_selectors=true",
+      "capabilities": {
+        "progress": false,
+        "seek": false,
+        "fullscreen": false
+      }
+    }
+  },
+  {
+    "file": "aurora-player-5781-2.html",
+    "url": "https://amd.online/5781-magija-vernuvshegosja-dolzhna-byt-osobennoj-2/episode/2/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:18.542873+00:00",
+    "source_sha256": "9bd96acd76aabda85bca3d418f21e388c8010585046e76715b6b6ef0a488a55d",
+    "source_bytes": 262943,
+    "http_status": 200,
+    "fixture": "amd_player_5781_2.html",
+    "episode_id": "amd:5781-episode-2",
+    "fixture_sha256": "c138ae5fe3b202b9af0ec1cdb0db080d97203c23d86a586b90eb3f91a7d75385",
+    "result": "PLAYER_UNAVAILABLE"
+  },
+  {
+    "file": "aurora-player-5796-3.html",
+    "url": "https://amd.online/5796-o-moem-pererozhdenii-v-sliz-ova/episode/3/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:18.759116+00:00",
+    "source_sha256": "9cc02d58d6404a5448892e705350cf6a76f70e7211a83303bedcf19631a660e3",
+    "source_bytes": 260193,
+    "http_status": 200,
+    "fixture": "amd_player_5796_3.html",
+    "episode_id": "amd:5796-episode-3",
+    "fixture_sha256": "4ab9319a4906d98f85fe4e993f6ca3dbbc4893154aa77c2638342bce745b00ef",
+    "result": {
+      "provider": "amd",
+      "quality_hint": null,
+      "type": "WEB_EMBED",
+      "embed_url": "https://kodikplayer.com/serial/31570/c18ce48edfd6597d95b4c743c7f80892/720p?season=1&episode=3&only_translations=610&hide_selectors=true",
+      "capabilities": {
+        "progress": false,
+        "seek": false,
+        "fullscreen": false
+      }
+    }
+  },
+  {
+    "file": "aurora-player-1925-1.html",
+    "url": "https://amd.online/1925-protivostojanie-svjatogo-bitva-prishestvija-bogov/episode/1/seriya-onlayn.html",
+    "captured_at": "2026-10-08T01:42:18.965683+00:00",
+    "source_sha256": "78c0df3b61826a333c982eeb26aef3ffe3b8c260d363559ab83f504e0ea18d1f",
+    "source_bytes": 242968,
+    "http_status": 200,
+    "fixture": "amd_player_1925_1.html",
+    "episode_id": "amd:1925-episode-1",
+    "fixture_sha256": "adb12bda1232107a1b1aabbbff86501e2f7c6bf2850d2cbfca468e40fbaa4a7c",
+    "result": {
+      "provider": "amd",
+      "quality_hint": null,
+      "type": "WEB_EMBED",
+      "embed_url": "https://vk.com/video_ext.php?oid=-225794656&id=456241770&hash=cf8a3fd662980b11",
+      "capabilities": {
+        "progress": false,
+        "seek": false,
+        "fullscreen": false
+      }
+    }
+  }
+]
