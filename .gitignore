@@ -1,33 +1,6 @@
-# Python / local tooling
-__pycache__/
-*.py[cod]
-.venv/
-.pytest_cache/
-.ruff_cache/
-.mypy_cache/
-.coverage
-htmlcov/
-*.egg-info/
+node_modules/
 dist/
-build/
-
-# Local settings / state
+.DS_Store
+*.log
 .env
 .env.*
-!.env.example
-*.db
-*.db-shm
-*.db-wal
-*.sqlite*
-*.log
-.idea/
-.vscode/
-
-# Android
-.gradle/
-.kotlin/
-local.properties
-*.apk
-*.aab
-*.jks
-*.keystore
