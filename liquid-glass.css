@@ -1,0 +1,106 @@
+/* LimanLab v0.3 — Liquid Glass optics. Decorative layers never receive input. */
+:root{
+  --liquid-power:.82;
+  --liquid-refraction:.72;
+  --liquid-speed:7s;
+  --liquid-edge:rgba(198,228,255,.62);
+  --liquid-specular:rgba(221,239,255,.36);
+}
+/* The light lives behind the glass; panels remain translucent. */
+.glass{
+  --mx:50%; --my:50%;
+  background:
+    radial-gradient(ellipse 125% 85% at 6% -18%,rgba(106,179,255,.16),transparent 62%),
+    radial-gradient(ellipse 85% 95% at 112% 122%,rgba(137,65,255,.16),transparent 73%),
+    linear-gradient(153deg,rgba(24,58,114,.47),rgba(6,17,48,.47) 49%,var(--glass));
+  border:1px solid rgba(123,178,255,.30);
+  box-shadow:
+    0 13px 30px rgba(0,3,25,.38),
+    0 3px 12px rgba(10,70,173,.10),
+    inset 0 1.5px 0 rgba(236,246,255,.30),
+    inset 1px 0 rgba(183,223,255,.15),
+    inset 0 -2px 2px rgba(4,13,50,.65),
+    inset -2px -1px 4px rgba(103,68,244,.13);
+  backdrop-filter:blur(var(--blur)) saturate(185%) brightness(1.08);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(185%) brightness(1.08);
+  transition:border-color .28s ease,box-shadow .35s ease,transform .28s ease;
+}
+/* Optical border: left / upper highlights and a thicker luminous lower meniscus. */
+.glass::before{
+  content:"";
+  position:absolute;inset:0;padding:1.5px;
+  border-radius:inherit;z-index:3;pointer-events:none;
+  background:
+    radial-gradient(ellipse 67% 54% at var(--mx) var(--my),rgba(255,255,255,.86),transparent 70%),
+    linear-gradient(130deg,rgba(242,250,255,.77),rgba(115,198,255,.22) 17%,rgba(146,128,255,.09) 43%,rgba(145,210,255,.41) 81%,rgba(233,239,255,.67)),
+    linear-gradient(0deg,rgba(74,173,255,.54),transparent 13%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask-composite:exclude;
+  opacity:calc(.24 + var(--liquid-power) * .70);
+  box-shadow:none;
+}
+/* A refracted moving light ribbon follows the pointer, with a soft sweep on hover. */
+.glass::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;z-index:2;
+  background:
+    radial-gradient(ellipse 135px 110px at var(--mx) var(--my),rgba(191,236,255,.22),rgba(110,167,255,.07) 52%,transparent 80%),
+    linear-gradient(112deg,transparent 28%,rgba(177,222,255,.025) 40%,rgba(235,246,255,.15) 48%,rgba(164,188,255,.045) 53%,transparent 62%);
+  background-size:100% 100%,260% 100%;background-position:center,120% center;
+  opacity:calc(.20 + var(--liquid-power) * .36);
+  mix-blend-mode:screen;
+  transform:none;
+  transition:background-position .9s ease,opacity .3s ease;
+}
+.glass:hover::after{background-position:center,-60% center;opacity:calc(.34 + var(--liquid-power) * .48);transform:none}
+.glass:hover{border-color:rgba(172,210,255,.56);box-shadow:0 16px 39px #030818a8,inset 0 1px rgba(252,255,255,.38),inset 0 -2px 2px rgba(2,10,47,.66),0 0 24px rgba(77,139,255,.12)}
+.glass > *{position:relative;z-index:1}
+/* A convex lens floating above each service preview: backdrop refracts beneath it. */
+.feature{overflow:hidden;transform-style:preserve-3d;will-change:auto}
+.feature::before{opacity:calc(.30 + var(--liquid-power) * .64)}
+.feature:hover{transform:translate3d(0,-5px,0) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));box-shadow:0 20px 44px color-mix(in srgb,var(--tile-color,#555dff) 20%,#0009),inset 0 1px rgba(255,255,255,.42),inset 0 -2px rgba(116,157,255,.33)}
+.feature .liquid-orb{
+  position:absolute;right:-24px;top:25px;width:104px;height:96px;z-index:0;
+  border-radius:57% 43% 64% 36% / 43% 57% 43% 57%;
+  background:linear-gradient(125deg,rgba(218,239,255,.20),rgba(36,120,245,.07) 28%,rgba(152,98,255,.09) 70%,rgba(238,242,255,.18));
+  border:1px solid rgba(189,225,255,.25);
+  box-shadow:inset 3px 3px 5px rgba(255,255,255,.12),inset -5px -8px 12px rgba(28,52,147,.25),0 7px 24px rgba(21,64,159,.17);
+  backdrop-filter:blur(calc(1px + var(--liquid-refraction) * 6px)) saturate(190%) brightness(1.18);
+  -webkit-backdrop-filter:blur(calc(1px + var(--liquid-refraction) * 6px)) saturate(190%) brightness(1.18);
+  opacity:calc(.20 + var(--liquid-refraction) * .5);
+  transform:translate3d(0,0,0) rotate(-18deg);
+  animation:liquid-float var(--liquid-speed) ease-in-out infinite alternate;
+  pointer-events:none;
+}
+.feature:nth-child(even) .liquid-orb{animation-delay:-3.5s;right:-38px;top:17px}
+.feature .liquid-orb::after{content:"";position:absolute;top:13%;left:18%;width:56%;height:17%;border-radius:50%;transform:rotate(-26deg);background:rgba(242,250,255,.40);filter:blur(7px)}
+.feature .preview{
+  background:linear-gradient(145deg,rgba(34,75,158,.23),rgba(3,13,46,.28));
+  border:1px solid rgba(145,194,255,.38);
+  box-shadow:inset 0 1px rgba(241,250,255,.19),inset 0 -1px rgba(7,26,77,.8),0 4px 15px rgba(0,3,23,.32);
+  transition:box-shadow .35s,filter .35s;
+}
+.feature .preview::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(120deg,transparent 20%,rgba(235,249,255,.18) 44%,transparent 65%);background-size:225% 100%;background-position:120% 50%;opacity:0;transition:opacity .3s,background-position 1.1s ease}
+.feature:hover .preview::after{opacity:.85;background-position:-85% 50%}
+.feature .preview svg,.feature .poster,.feature .photo-thumb{transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .65s}
+.feature:hover .preview svg{transform:scale(1.06)}
+.feature:hover .poster,.feature:hover .photo-thumb{filter:saturate(1.25) brightness(1.09);transform:scale(1.045)}
+.feature .roundarrow,.action.primary{box-shadow:inset 0 1px rgba(255,255,255,.29),inset 0 -2px rgba(6,16,59,.6),0 3px 13px rgba(77,61,198,.20)}
+/* Controls are tiny glass objects, too, not flat pieces of plastic. */
+.sidebar{background:linear-gradient(164deg,rgba(18,45,102,.70),rgba(4,14,40,.82) 74%);backdrop-filter:blur(23px) saturate(180%);-webkit-backdrop-filter:blur(23px) saturate(180%);box-shadow:inset -1px 0 rgba(208,232,255,.12),12px 0 50px #020b2970}
+.navitem.active,.action.primary,.pill.active{border:1px solid rgba(192,224,255,.40);box-shadow:inset 0 1px rgba(255,255,255,.31),inset 0 -1px rgba(32,42,118,.65),0 5px 22px rgba(85,75,255,.3)}
+.search,.icon-btn,.userbtn,.pill,.action,.select,.field{backdrop-filter:blur(12px) saturate(160%);-webkit-backdrop-filter:blur(12px) saturate(160%);box-shadow:inset 0 1px rgba(228,241,255,.16),inset 0 -1px rgba(3,11,37,.55),0 4px 15px rgba(0,4,18,.14)}
+.search:focus-within{border-color:rgba(189,224,255,.70);box-shadow:0 0 0 3px rgba(78,146,255,.13),inset 0 1px rgba(255,255,255,.24)}
+.hero{border:1px solid rgba(169,208,255,.28);box-shadow:inset 0 1px rgba(241,250,255,.17),0 12px 35px rgba(0,6,25,.20)}
+/* Small moving caustic threads imply liquid volume without obscuring data. */
+@keyframes liquid-float{0%{transform:translate3d(0,0,0) rotate(-18deg) scale(1)}50%{border-radius:47% 53% 42% 58% / 54% 47% 53% 46%}100%{transform:translate3d(-12px,8px,0) rotate(14deg) scale(1.11)}}
+/* One slider controls reflectivity; the other determines the visible refraction. */
+html[data-liquid-motion="off"] .liquid-orb{animation:none}
+html[data-liquid-motion="off"] .glass::after,html[data-liquid-motion="off"] .feature .preview::after{transition:none;background-position:center}
+html[data-liquid-motion="off"] .feature:hover{transform:translateY(-3px)}
+html[data-liquid-motion="off"] .feature:hover .preview svg{transform:none}
+@media (hover:none),(pointer:coarse){.feature .liquid-orb{opacity:.21;animation:none}.feature:hover{transform:none}.glass::after{opacity:.20}}
+@media(prefers-reduced-motion:reduce){.liquid-orb{animation:none!important}.glass::after,.feature .preview::after{transition:none!important}.feature:hover{transform:none}}
+@supports not (backdrop-filter:blur(2px)){.glass{background:linear-gradient(135deg,rgba(20,43,89,.96),rgba(7,18,47,.95))}.feature .liquid-orb{opacity:.28}}
