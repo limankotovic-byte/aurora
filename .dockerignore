@@ -1,4 +1,6 @@
 .git
+*.zip
+*.html~
+__pycache__
+*.py
 node_modules
-*.log
-.env*

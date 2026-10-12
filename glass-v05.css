@@ -1,0 +1,157 @@
+/* LimanLab v0.5: a transparent optical surface, not painted neon plastic.
+   The browser cannot physically raytrace backdrop pixels on all devices.
+   This progressive enhancement uses layered backdrop blur, specular rim,
+   refracted duplicate sky and moving caustics, with modest mobile fallbacks. */
+:root{--glass-v05-surface:rgba(10,23,54,.32);--glass-v05-edge:rgba(224,242,255,.44);--glass-v05-lit:rgba(238,249,255,.62)}
+body::after{background:linear-gradient(180deg,rgba(1,7,25,.10),rgba(3,7,24,.27) 54%,rgba(1,5,20,.36)),radial-gradient(ellipse 55% 45% at 75% 26%,rgba(127,66,212,.10),transparent) !important}
+/* A quieter chrome keeps the content and living scenes in focus. */
+.glass{
+  background:linear-gradient(130deg,rgba(35,64,109,.28),rgba(8,22,56,.27) 55%,rgba(5,15,42,.40)) !important;
+  border:1px solid rgba(200,226,255,.25) !important;
+  -webkit-backdrop-filter:blur(calc(7px + var(--blur,12px)*.40)) saturate(165%) brightness(1.04) !important;
+  backdrop-filter:blur(calc(7px + var(--blur,12px)*.40)) saturate(165%) brightness(1.04) !important;
+  box-shadow:0 14px 35px rgba(0,5,26,.25),inset 0 1.5px rgba(249,254,255,.36),inset 1px 0 rgba(197,238,255,.17),inset -1px 0 rgba(181,194,255,.11),inset 0 -2px rgba(3,7,34,.5) !important;
+}
+.glass::before{
+  background:conic-gradient(from 218deg at 45% 54%,rgba(232,246,255,.70),rgba(130,221,255,.10) 17%,rgba(215,228,255,.38) 30%,rgba(173,189,255,.04) 49%,rgba(144,219,255,.41) 68%,rgba(138,139,255,.10) 84%,rgba(255,255,255,.62)),radial-gradient(ellipse 75% 56% at var(--mx,40%) var(--my,10%),rgba(255,255,255,.72),transparent 74%) !important;
+  padding:1.15px !important;
+  opacity:calc(.52 + var(--liquid-power) * .25) !important;
+}
+.glass::after{
+  background:radial-gradient(ellipse 160px 105px at var(--mx,80%) var(--my,-5%),rgba(233,246,255,.18),rgba(124,213,255,.035) 50%,transparent 76%),linear-gradient(114deg,transparent 12%,rgba(255,255,255,.015) 32%,rgba(242,252,255,.13) 41%,rgba(130,189,255,.035) 45%,transparent 58%) !important;
+  background-size:100% 100%,265% 100% !important;
+  background-position:center,140% center !important;
+  opacity:.55 !important;
+  mix-blend-mode:screen;
+}
+.glass:hover::after{background-position:center,-80% center !important;opacity:.76 !important}
+.glass:hover{border-color:rgba(212,235,255,.46) !important}
+/* The tile face behaves like polished clear glass with softly shaded sides. */
+.feature,.feature:nth-child(3n + 2),.feature:nth-child(3n + 3){
+  padding:11px 10px 10px !important;
+  min-height:181px !important;
+  border-radius:20px !important;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--tile-color) 7%,transparent),rgba(15,32,74,.17) 42%,rgba(5,11,37,.36) 100%) !important;
+  border-color:rgba(209,235,255,.32) !important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.37),inset 0 -2px rgba(0,3,23,.52),inset 1.5px 0 rgba(210,243,255,.17),0 12px 30px rgba(1,5,26,.28),0 0 0 .4px color-mix(in srgb,var(--tile-color) 24%,transparent) !important;
+  overflow:hidden;
+}
+.feature::after{z-index:2 !important;opacity:.42 !important}
+.feature:hover::after{opacity:.73 !important}
+.feature .refract-layer{inset:-4px;clip-path:inset(5px round 17px);opacity:calc(.06 + var(--liquid-refraction)*.14);mix-blend-mode:screen;z-index:0;}
+.feature:hover .refract-layer{opacity:calc(.10 + var(--liquid-refraction)*.20)}
+.feature .liquid-orb{display:none!important}
+.feature .glass-caustic{
+  position:absolute !important;left:-15%;top:-24%;width:80%;height:46%;pointer-events:none;
+  z-index:1;opacity:.34;
+  transform:rotate(-20deg);
+  background:radial-gradient(ellipse at 45% 55%,rgba(210,243,255,.34),rgba(165,212,255,.06) 47%,transparent 73%);
+  filter:blur(12px);
+}
+.feature-title{align-items:center !important;gap:7px !important;position:relative;z-index:4!important;}
+.feature-title .svclogo{height:29px !important;width:30px !important;filter:drop-shadow(0 1px 7px rgba(55,167,255,.16));}
+.feature-title b{font-size:12.5px!important;letter-spacing:-.15px;}
+.feature-title .mini-status{color:#a7c7d6 !important;font-size:9px !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.online-dot{box-shadow:0 0 10px rgba(35,232,168,.31)}
+.feature .preview{
+  margin:10px 0 8px!important;height:85px !important;border-radius:11px !important;
+  background:rgba(3,13,40,.30)!important;
+  border:1px solid rgba(205,228,255,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(245,255,255,.26),inset 0 -1px 0 rgba(4,8,37,.31),0 9px 21px rgba(2,8,28,.23)!important;
+  isolation:isolate;
+}
+.feature .preview::before{
+  background:linear-gradient(155deg,rgba(255,255,255,.20),transparent 24%,transparent 74%,rgba(205,222,255,.09)) !important;
+  z-index:4 !important;
+}
+.feature-info{font-size:10px!important;line-height:1.45!important;color:#bbd0e7!important;min-width:0;}
+.feature-info strong{font-size:12px!important;font-weight:730;color:#f6faff;}
+.feature-footer{position:relative;z-index:4!important;gap:4px;}
+.roundarrow{width:24px!important;height:24px!important;flex:0 0 24px;background:linear-gradient(140deg,rgba(225,247,255,.18),rgba(67,118,199,.16))!important;border-color:rgba(233,245,255,.29)!important;box-shadow:inset 0 1px rgba(255,255,255,.24);}
+/* Cinematic miniatures: real illustrated scenes instead of flat gradient blocks. */
+.art-strip{height:100%;display:flex;align-items:center;gap:5px;padding:5px;position:relative;z-index:1;}
+.art-frame{margin:0;height:100%;flex:1;min-width:0;overflow:hidden;position:relative;border-radius:6px;box-shadow:0 3px 12px rgba(0,3,16,.58),0 0 0 .65px rgba(231,247,255,.24);transform:perspective(150px) rotateY(-3deg);}
+.art-frame img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.17) contrast(1.04);transform:scale(1.25) translateY(1%);transition:transform .6s ease;}
+.art-reflection{position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.27),transparent 22%,transparent 72%,rgba(175,204,255,.08));mix-blend-mode:screen;}
+.feature:hover .art-frame img{transform:scale(1.34) translateY(-2%)}
+.art-frame:nth-child(2){transform:perspective(150px) translateY(-2px)}
+.art-frame:nth-child(3){transform:perspective(150px) rotateY(3deg)}
+.preview-gallery .mini-film-grain{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(3,6,18,.41)),repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.018) 4px 5px);opacity:.7}
+.preview-gallery .photo-count{position:absolute;bottom:7px;left:9px;z-index:3;color:rgba(255,255,255,.93);font-size:8px;font-weight:700;letter-spacing:.2px;text-shadow:0 1px 3px #001}
+.preview-docker svg,.preview-memory svg,.preview-nodes svg,.preview-agents svg,.preview-map svg{width:100%;height:100%;display:block;position:relative;z-index:1}
+.preview-caption{position:absolute;z-index:3;bottom:5px;left:8px;right:8px;display:flex;justify-content:space-between;font-weight:750;font-size:7px;letter-spacing:.6px;color:rgba(234,249,255,.78);text-shadow:0 1px 4px #000b}
+.preview-caption b{font-size:7px;color:#55f5d0}
+.rack-led,.memory-star,.node-spark{animation:mini-twinkle 3.5s ease-in-out infinite alternate;}
+.agent-cube{transform-origin:center;animation:cube-drift 5.6s ease-in-out infinite alternate}
+.map-pulse{transform-box:fill-box;transform-origin:center;animation:map-breathe 4s ease-in-out infinite}
+@keyframes mini-twinkle{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes cube-drift{0%{transform:translateY(3px)}100%{transform:translateY(-5px)}}
+@keyframes map-breathe{0%,100%{opacity:.18;transform:scale(.7)}50%{opacity:.6;transform:scale(1.2)}}
+@keyframes scene-float{0%{transform:scale(1.23) translate(-1%,1%)}100%{transform:scale(1.33) translate(1%,-3%)}}
+html[data-liquid-motion="on"] .art-frame img{animation:scene-float 13s ease-in-out infinite alternate}
+html[data-liquid-motion="on"] .art-frame:nth-child(2) img{animation-duration:17s;animation-delay:-5s}
+html[data-liquid-motion="on"] .art-frame:nth-child(3) img{animation-duration:15s;animation-delay:-7s}
+html[data-liquid-motion="off"] .art-frame img,html[data-liquid-motion="off"] .rack-led,html[data-liquid-motion="off"] .node-spark,html[data-liquid-motion="off"] .agent-cube,html[data-liquid-motion="off"] .memory-star,html[data-liquid-motion="off"] .map-pulse{animation:none!important}
+/* Header, menu, and hero lose the blue plastic opacity. */
+.hero{background:linear-gradient(110deg,rgba(8,26,70,.26),rgba(28,47,108,.08) 55%,rgba(20,11,68,.12))!important;border:1px solid rgba(215,237,255,.40)!important;box-shadow:inset 0 1.5px rgba(255,255,255,.51),inset 0 -2px rgba(4,12,54,.4),0 14px 37px rgba(4,7,35,.20)!important;backdrop-filter:blur(10px) saturate(160%)!important;-webkit-backdrop-filter:blur(10px) saturate(160%)!important;}
+.hero h1{letter-spacing:-.65px;}
+.search,.icon-btn,.userbtn,.pill,.action,.select,.field{background:linear-gradient(135deg,rgba(28,61,109,.31),rgba(7,21,60,.35))!important;border-color:rgba(203,226,255,.26)!important;box-shadow:inset 0 1px rgba(255,255,255,.2),inset 0 -1px rgba(3,14,56,.41),0 6px 20px rgba(3,10,33,.12)!important}
+.sidebar{background:linear-gradient(155deg,rgba(10,32,85,.52),rgba(4,13,43,.77) 74%)!important}
+.sidebar .brand{display:flex;align-items:center;gap:10px;}
+.brand .brand-desc{display:block;white-space:normal;line-height:1.1}
+.sidebar .navitem.active{border-radius:12px}
+.kpi,.stat-card{background:linear-gradient(132deg,rgba(23,47,95,.38),rgba(5,18,48,.47))!important}
+/* Interactions stay accessible even on displays that cannot do SVG refraction. */
+.feature:focus-visible,.navitem:focus-visible,.icon-btn:focus-visible{outline:2px solid #a1e7ff;outline-offset:2px}
+@media (max-width:1450px){.feature{min-height:181px!important}}
+@media (max-width:680px){
+ body::before{background-position:62% top !important;filter:saturate(1.12) contrast(1.06)!important;}
+ body::after{background:linear-gradient(180deg,rgba(0,6,30,.14),rgba(0,6,26,.28) 45%,rgba(1,6,27,.38))!important}
+ .main{padding:8px 10px 24px!important;}
+ .topbar{height:42px!important;margin-bottom:9px!important;gap:6px}
+ .mobile-menu{min-width:41px;height:41px}
+ .icon-btn{border-radius:12px!important}
+ .search{height:40px!important;border-radius:13px!important;padding-inline:10px!important}
+ .search input{font-size:12px;letter-spacing:-.15px}
+ .hero{min-height:96px;height:auto!important;margin-bottom:10px!important;padding:15px!important;border-radius:17px!important;align-items:flex-start}
+ .hero h1{font-size:22px!important;line-height:1.18!important;margin-bottom:7px}
+ .hero p{font-size:11.5px;max-width:195px;line-height:1.48}
+ .hero-side{margin-left:5px;min-width:91px;align-self:center}
+ .hero-clock{font-size:17px!important}
+ .hero-date{max-width:92px;text-align:right;font-size:9px!important;line-height:1.4}
+ .feature-grid{gap:8px!important;margin-bottom:9px!important}
+ .feature,.feature:nth-child(3n + 2),.feature:nth-child(3n + 3){height:181px!important;min-height:181px!important;max-height:181px;padding:10px 9px 9px!important;border-radius:18px!important;}
+ .feature-title .svclogo{width:25px!important;height:26px!important;}
+ .feature-title b{font-size:11.5px!important}
+ .feature-title .mini-status{font-size:8px!important;margin-top:2px}
+ .feature .preview{height:76px!important;margin:9px 0 7px!important;border-radius:9px!important}
+ .feature .feature-info strong{font-size:11.5px!important}
+ .feature .feature-info{font-size:9px!important;line-height:1.42!important}
+ .feature .roundarrow{width:21px!important;height:21px!important;flex-basis:21px;}
+ .art-strip{gap:3px;padding:4px}
+ .art-frame{border-radius:4px}
+ .sidebar{width:min(290px,83vw)!important;padding:16px 13px!important;}
+ .sidebar .brand{margin:1px 1px 23px!important;gap:11px!important;display:flex!important;}
+ .sidebar .brand-logo{width:43px!important;height:43px!important;flex:0 0 43px;}
+ .sidebar .brand-name{display:block!important;font-size:23px!important;line-height:1.1!important}
+ .sidebar .brand-desc{display:block!important;font-size:10px!important;opacity:.77;margin-top:4px!important;white-space:normal;}
+ .sidebar .navitem{height:50px!important;padding:12px 14px!important;}
+ .sidebar-foot{margin-top:auto;}
+ .glass::after{opacity:.37!important}
+ .feature:hover{transform:none!important}
+ .feature .refract-layer{opacity:.13!important;filter:blur(1px)!important}
+ .feature .glass-caustic{opacity:.27}
+ .glass{backdrop-filter:blur(9px) saturate(152%)!important;-webkit-backdrop-filter:blur(9px) saturate(152%)!important}
+ .kpi-grid{gap:7px}
+ .kpi{min-height:96px}
+}
+@media (max-width:360px){
+ .main{padding-inline:7px!important}
+ .feature-grid{gap:6px!important}
+ .feature,.feature:nth-child(3n + 2),.feature:nth-child(3n + 3){padding-inline:7px!important;height:178px!important;min-height:178px!important}
+ .feature-title b{font-size:11px!important}
+ .hero p{max-width:175px}
+ .hero-side{min-width:80px}
+}
+@media (prefers-reduced-motion:reduce){.art-frame img,.rack-led,.memory-star,.node-spark,.agent-cube,.map-pulse{animation:none!important}.feature:hover{transform:none!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass,.feature{background:rgba(9,21,52,.78)!important}}

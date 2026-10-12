@@ -1,42 +1,228 @@
-/* LimanLab v0.4: actual transmitted backdrop, refractive skin and liquid optics */
-:root{--liquid-power:.85;--liquid-refraction:.8}
-html{background:#020817}
-body{position:relative;isolation:isolate;background:#04091d}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:url("./aurora-landscape.svg") center center/cover no-repeat;filter:saturate(1.25) contrast(1.06);transform:scale(1.015)}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 65% 40% at 77% 15%,#ad56ff26,transparent 78%),radial-gradient(ellipse 70% 50% at 2% 74%,#008aff1a,transparent 90%),linear-gradient(180deg,#00030e13,#00091e39 68%,#00081e73)}
-#app{position:relative;z-index:1}
-.main::before{display:none!important}
-.hero{background:linear-gradient(100deg,#050e2d6b,#1e327119 65%,#260a421c)!important;border:1px solid #e2f2ff68!important;backdrop-filter:blur(8px) saturate(175%)!important;box-shadow:inset 0 1.5px #ffffff74,inset 0 -3px 4px #0d164b73,0 12px 34px #00051e40!important}
-.glass{position:relative;isolation:isolate;background:radial-gradient(ellipse 93% 80% at 0 -13%,#70c5ff2c,transparent 70%),radial-gradient(ellipse 94% 83% at 106% 124%,#a356ff26,transparent 75%),linear-gradient(138deg,#153c794f,#0b23544e 43%,#0613338c)!important;border:1px solid #c9e5ff5c!important;backdrop-filter:blur(calc(8px + var(--blur)*.42)) saturate(215%) brightness(1.1)!important;-webkit-backdrop-filter:blur(calc(8px + var(--blur)*.42)) saturate(215%) brightness(1.1)!important;box-shadow:0 15px 36px #00041c50,inset 0 2px 0 #f0faff5b,inset 1px 0 #b8eaff25,inset -1px 0 #bea4ff27,inset 0 -3px #04122c7a!important;transition:border-color .25s,box-shadow .25s,transform .25s}
-.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.8px;pointer-events:none;z-index:3;background:radial-gradient(ellipse 52% 70% at var(--mx,52%) var(--my,18%),#ffffffec,transparent 69%),conic-gradient(from 215deg at 50% 50%,#daf4ffcb,#5eacff0a 21%,#ffffff70 35%,#8c7aff0a 52%,#98dfff96 68%,#486deb0c 81%,#e4f7ffd9 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:calc(.60 + var(--liquid-power)*.35)!important}
-.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;background:radial-gradient(ellipse 170px 125px at var(--mx,84%) var(--my,-18%),#edffff50,#83d8ff10 48%,transparent 79%),linear-gradient(115deg,transparent 8%,#adf0ff0e 25%,#ffffff3d 31%,#b1dfff0c 38%,transparent 49%);background-size:100% 100%,260% 100%;background-position:center,155% center;opacity:calc(.36 + var(--liquid-power)*.53);mix-blend-mode:screen;transition:background-position .9s ease,opacity .3s}
-.glass:hover::after{background-position:center,-80% center;opacity:.97}
-.glass:hover{border-color:#e3f8ffc2!important;box-shadow:0 22px 44px #00051f73,0 0 26px #398fff26,inset 0 2px #fff9,inset 0 -3px #112c6d45!important}
-.glass>*{position:relative;z-index:1}
-.feature{overflow:hidden;min-height:210px;border-radius:21px!important;padding:13px 11px!important;border-color:color-mix(in srgb,var(--tile-color,#55afff) 34%,#cdeaff88)!important;background:radial-gradient(ellipse 105% 85% at 0 -25%,color-mix(in srgb,var(--tile-color,#659fff) 20%,transparent),transparent 65%),linear-gradient(140deg,#16356982,#0b1b4b73 50%,#080e36a3)!important;box-shadow:0 16px 35px #00051b55,inset 0 2px #ffffff68,0 0 20px color-mix(in srgb,var(--tile-color,#5993ff) 9%,transparent)!important}
-.feature:nth-child(3n+2){background:linear-gradient(138deg,#39328880,#111c5375 52%,#0a113b8c)!important}
-.feature:nth-child(3n+3){background:linear-gradient(138deg,#11547f80,#0a235c75 52%,#09103294)!important}
-.feature:hover{transform:translate3d(0,-5px,0) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));box-shadow:0 22px 47px color-mix(in srgb,var(--tile-color,#55afff) 18%,#0008),inset 0 2px #ffffff80!important}
-.feature::after{background:radial-gradient(ellipse 130px 90px at var(--mx,50%) var(--my,8%),#f7ffff50,transparent 78%),linear-gradient(110deg,transparent 12%,#ffffff21 28%,#ffffff40 31%,#78bfff08 41%,transparent 51%);background-size:100% 100%,240% 100%;background-position:center,145% center}
-.feature:hover::after{background-position:center,-95% center}
-.feature .refract-layer{position:absolute;inset:-3px;z-index:0;pointer-events:none;border-radius:inherit;background:url('./aurora-landscape.svg') center center/cover fixed no-repeat;opacity:calc(.11 + var(--liquid-refraction)*.16);filter:blur(1.2px) saturate(150%);clip-path:inset(4px round 20px);transform:translate3d(var(--lens-x,0px),var(--lens-y,0px),0) scale(1.05);transition:transform .18s ease,opacity .25s ease;mix-blend-mode:screen}
-.feature:hover .refract-layer{opacity:calc(.14 + var(--liquid-refraction)*.26);filter:url('#liman-water-refraction') blur(.7px) saturate(175%)}
+/* LimanLab v0.4 — translucent liquid optics, not merely illuminated cards.
+   All decorative surfaces are non-interactive. No remote resources. */
+:root {
+  --liquid-tint: rgba(9, 23, 60, .34);
+  --liquid-light: rgba(218, 242, 255, .80);
+  --liquid-deep: rgba(3, 8, 31, .52);
+  --liquid-sky: rgba(37, 148, 255, .3);
+  --lens-shift: 0px;
+}
+html { background: #03091e; }
+body { position:relative; background:#050b23; isolation:isolate; }
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background: url('./assets/aurora-landscape.svg') center center / cover no-repeat;
+  filter: saturate(1.26) contrast(1.06);
+  transform:scale(1.015);
+}
+body::after {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 67% 45% at 68% 12%,rgba(115,59,220,.17),transparent 81%),
+    radial-gradient(ellipse 48% 46% at 7% 77%,rgba(2,144,230,.13),transparent 90%),
+    linear-gradient(180deg,rgba(0,4,20,.08),rgba(0,5,20,.25) 66%,rgba(0,4,17,.44));
+}
+#app{position:relative;z-index:1;}
+.main::before{display:none !important;}
+.hero{
+  background:linear-gradient(100deg,rgba(5,13,40,.38),rgba(20,38,81,.10) 62%,rgba(18,9,57,.15)) !important;
+  border:1px solid rgba(219,234,255,.42) !important;
+  backdrop-filter:blur(7px) saturate(160%) !important;
+  -webkit-backdrop-filter:blur(7px) saturate(160%) !important;
+  box-shadow:inset 0 1.5px 0 rgba(245,250,255,.52),inset 0 -3px 4px rgba(18,25,89,.38),0 12px 34px rgba(0,4,24,.19) !important;
+}
+/* Panels must transmit enough color for background blur to be visible.
+   Default opacity for old version was >0.7, swallowing the effect. */
+.glass {
+  isolation:isolate;
+  position:relative;
+  background:
+    radial-gradient(ellipse 91% 85% at 4% -15%,rgba(119,199,255,.19),transparent 68%),
+    radial-gradient(ellipse 90% 85% at 100% 118%,rgba(161,84,255,.18),transparent 76%),
+    linear-gradient(132deg,rgba(23,63,126,.42) 0%,rgba(15,34,85,.30) 44%,rgba(4,12,40,.49) 100%) !important;
+  border:1px solid rgba(192,224,255,.34) !important;
+  backdrop-filter:blur(calc(9px + var(--blur) * .42)) saturate(215%) brightness(1.12) !important;
+  -webkit-backdrop-filter:blur(calc(9px + var(--blur) * .42)) saturate(215%) brightness(1.12) !important;
+  box-shadow:
+    0 15px 37px rgba(0,2,17,.29),
+    0 0 0 .5px rgba(121,166,255,.30),
+    inset 0 1.5px 0 rgba(240,251,255,.37),
+    inset 1.5px 0 rgba(167,225,255,.14),
+    inset -1.5px 0 rgba(163,124,250,.17),
+    inset 0 -2.5px 1.5px rgba(4,8,46,.56),
+    inset 0 -7px 11px rgba(63,125,218,.045) !important;
+  transition: border-color .25s ease,box-shadow .25s ease,transform .3s ease;
+}
+/* The specular lip is brighter than the center: frosted on its edge, clear inside. */
+.glass::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1.7px;
+  pointer-events:none;
+  z-index:3;
+  background:
+    radial-gradient(ellipse 48% 70% at var(--mx,52%) var(--my,18%),rgba(255,255,255,.96),transparent 68%),
+    conic-gradient(from 210deg at 50% 50%,rgba(215,239,255,.78),rgba(102,187,255,.06) 21%,rgba(221,233,255,.36) 34%,rgba(139,114,255,.03) 51%,rgba(136,223,255,.65) 66%,rgba(80,130,239,.08) 80%,rgba(229,249,255,.72) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask-composite:exclude;
+  opacity:calc(.65 + var(--liquid-power) * .32) !important;
+}
+/* Visibly shifting caustic — not a flat hover glow. */
+.glass::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  z-index:2;
+  background:
+    radial-gradient(ellipse 170px 135px at var(--mx,82%) var(--my,-18%),rgba(235,252,255,.24),rgba(115,207,255,.072) 44%,transparent 78%),
+    linear-gradient(116deg,transparent 10%,rgba(170,229,255,.04) 27%,rgba(246,254,255,.18) 33%,rgba(139,218,255,.045) 36%,transparent 46%,rgba(245,251,255,.055) 62%,transparent 73%);
+  background-size:100% 100%,265% 100%;
+  background-position:center,160% 50%;
+  opacity:calc(.39 + var(--liquid-power) * .47);
+  mix-blend-mode:screen;
+  transition:background-position .9s cubic-bezier(.16,.72,.18,.99),opacity .32s ease;
+}
+.glass:hover::after{background-position:center,-75% 50%;opacity:.96}
+.glass:hover{
+  border-color:rgba(237,252,255,.70) !important;
+  box-shadow:
+    0 20px 44px rgba(0,4,25,.40),
+    0 0 24px rgba(67,152,255,.13),
+    inset 0 2px 0 rgba(255,255,255,.56),
+    inset -2px 0 rgba(196,175,255,.22),
+    inset 0 -3px rgba(6,16,65,.36) !important;
+}
+.glass > * { position:relative;z-index:1; }
+/* Large glass doors carrying miniature living experiences. */
+.feature {
+  border-radius:21px !important;
+  min-height:207px;
+  padding:13px 11px;
+  background:
+    radial-gradient(ellipse 105% 80% at 3% -26%,color-mix(in srgb,var(--tile-color,#49acff) 22%,transparent),transparent 66%),
+    linear-gradient(145deg,rgba(16,46,98,.44),rgba(8,19,58,.32) 48%,rgba(7,10,44,.53) 100%) !important;
+  border-color:color-mix(in srgb,var(--tile-color,#79b4ff) 35%,rgba(214,238,255,.49)) !important;
+  box-shadow:
+    0 15px 30px rgba(0,2,17,.26),
+    0 0 18px color-mix(in srgb,var(--tile-color,#528bff) 11%,transparent),
+    inset 0 2px rgba(252,255,255,.41),
+    inset 0 -3px rgba(3,14,52,.55),
+    inset 0 0 20px color-mix(in srgb,var(--tile-color,#528bff) 5%,transparent) !important;
+}
+.feature:nth-child(3n + 2){background:linear-gradient(140deg,rgba(41,38,113,.43),rgba(13,19,59,.33) 51%,rgba(8,14,49,.49)) !important}
+.feature:nth-child(3n + 3){background:linear-gradient(140deg,rgba(14,61,112,.43),rgba(12,19,62,.29) 53%,rgba(7,12,43,.51)) !important}
+.feature:hover {
+  transform:translate3d(0,-5px,0) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));
+  box-shadow:0 22px 47px color-mix(in srgb,var(--tile-color,#528bff) 19%,rgba(0,0,0,.35)),inset 0 2px rgba(255,255,255,.53),inset 0 -4px rgba(115,135,241,.13) !important;
+}
+.feature::after{
+  background:
+    radial-gradient(ellipse 110px 70px at var(--mx,50%) var(--my,8%),rgba(232,246,255,.23),transparent 78%),
+    linear-gradient(111deg,transparent 14%,rgba(226,247,255,.11) 27%,rgba(255,255,255,.21) 29%,rgba(135,191,255,.055) 37%,transparent 47%);
+  background-size:100% 100%,240% 100%;
+  background-position:center,125% center;
+}
+.feature:hover::after{background-position:center,-92% center}
+.feature .liquid-orb {
+  z-index:0;
+  width:112px;height:112px;
+  right:-22px;top:46px;
+  opacity:calc(.12 + var(--liquid-refraction) * .46);
+  background:
+    radial-gradient(ellipse at 28% 19%,rgba(255,255,255,.49),transparent 32%),
+    radial-gradient(ellipse at 67% 75%,rgba(82,108,245,.38),transparent 61%),
+    rgba(188,222,255,.085);
+  border:1px solid rgba(239,253,255,.36);
+  box-shadow:inset 3px 4px 5px rgba(255,255,255,.21),inset -6px -8px 11px rgba(19,50,115,.38),0 0 22px rgba(47,137,251,.10);
+  backdrop-filter:blur(calc(1px + var(--liquid-refraction) * 5px)) saturate(250%) contrast(1.18);
+  -webkit-backdrop-filter:blur(calc(1px + var(--liquid-refraction) * 5px)) saturate(250%) contrast(1.18);
+}
+.feature .preview {
+  background:rgba(5,16,46,.20);
+  border:1px solid rgba(194,227,255,.32);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:inset 0 1px rgba(244,252,255,.20),inset 0 -1px rgba(8,21,70,.7),0 8px 22px rgba(0,7,35,.20);
+}
+.feature .preview::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,rgba(212,238,255,.16),transparent 27%,transparent 73%,rgba(149,171,255,.15));}
+/* Stats, tables and inspector share the same non-opaque material. */
+.kpi,.stat-card{background:linear-gradient(132deg,rgba(24,65,127,.45),rgba(5,14,47,.38)) !important}
+.sidebar{
+  background:linear-gradient(166deg,rgba(10,29,80,.45),rgba(3,11,38,.71) 74%) !important;
+  border-right:1px solid rgba(226,241,255,.25) !important;
+  box-shadow:inset -1px 0 rgba(233,248,255,.18),12px 0 60px rgba(0,6,37,.28) !important;
+  backdrop-filter:blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter:blur(24px) saturate(180%) !important;
+}
+.sidebar::before{background:radial-gradient(ellipse 98% 39% at 0 2%,rgba(97,93,245,.20),transparent 85%),radial-gradient(ellipse 80% 60% at 7% 92%,rgba(15,95,166,.20),transparent) !important;}
+.topbar { backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);border-radius:15px;}
+.search,.icon-btn,.userbtn,.pill,.action,.select,.field{
+  background-color:rgba(14,39,83,.39) !important;
+  border-color:rgba(169,215,255,.29) !important;
+  backdrop-filter:blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(180%) !important;
+  box-shadow:inset 0 1px rgba(255,255,255,.22),inset 0 -1px rgba(4,12,36,.43),0 6px 20px rgba(0,6,26,.13);
+}
+.navitem.active,.action.primary,.pill.active{
+  background:linear-gradient(110deg,rgba(26,108,240,.65),color-mix(in srgb,var(--accent) 65%,transparent)) !important;
+  border:1px solid rgba(225,246,255,.57) !important;
+  box-shadow:inset 0 1.5px rgba(255,255,255,.36),inset 0 -2px rgba(39,29,127,.43),0 7px 22px rgba(88,68,238,.32) !important;
+}
+/* Frosted background in windows is clearly more legible than opaque plastic. */
+.modal{background:linear-gradient(155deg,rgba(20,54,116,.82),rgba(4,13,46,.88));border:1px solid rgba(226,248,255,.52);backdrop-filter:blur(26px) saturate(175%);box-shadow:0 28px 100px rgba(0,3,21,.63),inset 0 1px rgba(255,255,255,.38)}
+@keyframes liquid-glisten{0%{background-position:center,160% center}100%{background-position:center,-80% center}}
+html[data-liquid-motion="on"] .feature:nth-child(3n + 1)::after{animation:liquid-glisten 13s ease-in-out infinite alternate}
+html[data-liquid-motion="on"] .feature:nth-child(3n + 2)::after{animation:liquid-glisten 16s ease-in-out -5s infinite alternate}
+html[data-liquid-motion="on"] .feature:nth-child(3n + 3)::after{animation:liquid-glisten 17s ease-in-out -9s infinite alternate}
+html[data-liquid-motion="off"] .feature::after{animation:none !important}
+@media (hover:none),(pointer:coarse){
+  .feature:hover{transform:none !important;}
+  .glass::after{opacity:.35;}
+  html[data-liquid-motion="on"] .feature::after{animation:none !important;}
+  .feature .liquid-orb{animation:none !important;}
+}
+@media (prefers-reduced-motion:reduce){
+  .feature::after,.liquid-orb{animation:none !important}
+  .feature:hover{transform:none !important}
+  body::before{transform:none}
+}
+@supports not (backdrop-filter:blur(1px)){
+  .glass{background:linear-gradient(138deg,rgba(21,53,102,.85),rgba(5,17,49,.88)) !important}
+  .sidebar{background:rgba(4,13,42,.93) !important}
+}
+
+/* Actual pixel distortion: duplicate the fixed background underneath selected
+   translucent tiles and displace only that layer. UI labels never warp. */
 .glass-filter-library{position:absolute;pointer-events:none;width:0;height:0;overflow:hidden}
-.feature .liquid-orb{z-index:0;width:112px;height:112px;right:-22px;top:46px;opacity:calc(.12 + var(--liquid-refraction)*.46);background:radial-gradient(ellipse at 29% 18%,#ffffff77,transparent 34%),radial-gradient(ellipse at 71% 76%,#566ae461,transparent 60%),#b8dfff15;border:1px solid #effcff60;box-shadow:inset 3px 4px 5px #ffffff33,inset -6px -8px 11px #102c766e,0 0 22px #338bff25;backdrop-filter:blur(calc(1px + var(--liquid-refraction)*5px)) saturate(250%) contrast(1.16)}
-.feature .preview{background:#08173530;border:1px solid #c2e6ff55;border-radius:12px;box-shadow:inset 0 1px #f4fdff33,0 8px 24px #00091f3b}
-.feature .preview::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,#c2efff2a,transparent 31%,transparent 70%,#b7afff28)}
-.kpi,.stat-card{background:linear-gradient(132deg,#1a488272,#0611356e)!important}
-.sidebar{background:linear-gradient(170deg,#0a20526e,#050e2bbd 76%)!important;border-right:1px solid #def0ff38!important;backdrop-filter:blur(25px) saturate(190%)!important;-webkit-backdrop-filter:blur(25px) saturate(190%)!important;box-shadow:inset -1px #c6eaff30,12px 0 60px #00072255!important}
-.sidebar::before{background:radial-gradient(ellipse at -10% 0,#7c5cfb30,transparent 71%),radial-gradient(ellipse at 7% 92%,#1674bc25,transparent 78%)!important}
-.search,.icon-btn,.userbtn,.pill,.action,.select,.field{background-color:#0d255a66!important;border-color:#b1dfff50!important;backdrop-filter:blur(18px) saturate(185%)!important;box-shadow:inset 0 1px #f2f9ff35,inset 0 -1px #02103570,0 6px 20px #00092525}
-.navitem.active,.action.primary,.pill.active{background:linear-gradient(105deg,#1465e2ba,color-mix(in srgb,var(--accent) 65%,transparent))!important;border:1px solid #def5ff9c!important;box-shadow:inset 0 1px #fff7,inset 0 -2px #0b1c6b70,0 7px 25px #6c50ed64!important}
-.modal{background:linear-gradient(155deg,#173b83e7,#07173ae9);border:1px solid #e1f8ff8a;backdrop-filter:blur(27px)}
-@keyframes liquid-glisten{from{background-position:center,150% center}to{background-position:center,-90% center}}
-html[data-liquid-motion="on"] .feature:nth-child(3n+1)::after{animation:liquid-glisten 14s ease-in-out infinite alternate}
-html[data-liquid-motion="on"] .feature:nth-child(3n+2)::after{animation:liquid-glisten 16s ease-in-out -5s infinite alternate}
-html[data-liquid-motion="on"] .feature:nth-child(3n+3)::after{animation:liquid-glisten 18s ease-in-out -9s infinite alternate}
-html[data-liquid-motion="off"] .feature::after{animation:none!important}
-html[data-liquid-motion="off"] .feature .refract-layer{transform:none;filter:blur(1px)}
-@media(hover:none),(pointer:coarse){.feature:hover{transform:none!important}.feature .refract-layer{opacity:.12;filter:blur(1px)!important}.feature::after{animation:none!important}.feature .liquid-orb{animation:none!important}}
-@media(prefers-reduced-motion:reduce){.feature::after,.feature .liquid-orb{animation:none!important}.feature:hover{transform:none!important}.feature .refract-layer{transform:none!important;filter:blur(1px)!important}}
-@supports not (backdrop-filter:blur(1px)){.glass{background:linear-gradient(140deg,#123269ed,#08172ff0)!important}.sidebar{background:#06142ef2!important}}
+.feature .refract-layer{
+  position:absolute;inset:-3px;z-index:0;pointer-events:none;
+  border-radius:inherit;
+  background: url('./assets/aurora-landscape.svg') center center/cover fixed no-repeat;
+  opacity:calc(.12 + var(--liquid-refraction) * .17);
+  filter: blur(1.2px) saturate(150%);
+  clip-path:inset(4px round 20px);
+  transform:translate3d(var(--lens-x,0px),var(--lens-y,0px),0) scale(1.052);
+  transition:transform .18s ease,opacity .25s ease;
+  mix-blend-mode:screen;
+}
+.feature:hover .refract-layer{
+  opacity:calc(.15 + var(--liquid-refraction) * .27);
+  filter:url('#liman-water-refraction') blur(.7px) saturate(175%);
+}
+html[data-liquid-motion="off"] .feature .refract-layer{transform:none;filter:blur(1px) saturate(150%)}
+@media (hover:none),(pointer:coarse){.feature .refract-layer{opacity:.12;filter:blur(1px)}.feature:hover .refract-layer{filter:blur(1px)}}
+@media (prefers-reduced-motion:reduce){.feature .refract-layer{transform:none!important;filter:blur(1px)!important}.feature:hover .refract-layer{filter:blur(1px)!important}}
